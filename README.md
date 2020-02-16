@@ -7,3 +7,6 @@
 # gmall-user-web 8081
 # gmall-user-service 8071
 
+# gmall-manager-web 8082
+# gmall-manager-service 8072
+

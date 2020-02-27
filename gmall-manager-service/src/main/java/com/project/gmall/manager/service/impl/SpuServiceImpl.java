@@ -69,7 +69,45 @@ public class SpuServiceImpl implements SpuService{
         }
 
         // 添加spu图片
+        List<PmsProductImage> spuImageList = pmsProductInfo.getSpuImageList();
 
+        for (PmsProductImage pmsProductImage : spuImageList) {
+            pmsProductImage.setProductId(spuId);
+            pmsProductImageMapper.insertSelective(pmsProductImage);
 
+        }
+
+    }
+
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId) {
+        PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
+        pmsProductSaleAttr.setProductId(spuId);
+        List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
+
+        for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
+            PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
+            pmsProductSaleAttrValue.setSaleAttrId(productSaleAttr.getSaleAttrId());
+            pmsProductSaleAttrValue.setProductId(spuId);
+
+            List<PmsProductSaleAttrValue> productSaleAttrValues = pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
+
+            productSaleAttr.setSpuSaleAttrValueList(productSaleAttrValues);
+        }
+        return pmsProductSaleAttrs;
+    }
+
+    @Override
+    public List<PmsProductImage> spuImageList(String spuId) {
+        PmsProductImage pmsProductImage = new PmsProductImage();
+        pmsProductImage.setProductId(spuId);
+
+        return pmsProductImageMapper.select(pmsProductImage);
+    }
+
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId, String skuId) {
+        List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.selectSpuSaleAttrListCheckBySku(productId, skuId);
+        return pmsProductSaleAttrs;
     }
 }

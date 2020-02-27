@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .green{
+            background-color: #00AA66;
+        }
+        .red{
+            background-color: #761c19;
+        }
+    </style>
+
+    <script language="JavaScript">
+        function a(mv){
+            alert(mv)
+        }
+    </script>
+
+</head>
+<body>
+取值: <input type="text" value="111" th:value="${hello}" /> <br/>
+
+循环: <input type="text" value="111" th:each="a:${hellos}" th:value="${a}" />
+<br/>
+<p th:each="b:${hellos}">
+    <input type="text" value="111" th:value="${b}" />
+</p>
+<br/>
+
+判断:<input type="text" th:if="${hello=='hello'}" value="我存在" />
+<br/>
+
+<div style="height: 100px; width: 100px;" th:class="${hello=='hello1'}?'red':'green'"></div>
+<br/>
+
+js调用函数:
+<a th:href="'javascript:a(\''+${mv}+'\')'">点我有美女</a>
+
+<br/>
+页面引入:
+<div th:include="inner"></div>
+<br/>
+<div th:include="inner::a"></div>
+<div th:include="inner::b"></div>
+<div th:include="inner::c"></div>
+<br/>
+
+session:
+<input th:value="${session.name}" />
+<br/>
+
+</body>
+</html>
